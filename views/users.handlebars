@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Usuarios Registrados</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    h2 {
+      color: #007bff;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Usuarios Registrados</h1>
+    <h2>Masculino</h2>
+    <ul>
+      {{#each users.male}}
+        <li>{{name}} - {{email}} - {{timestamp}}</li>
+      {{/each}}
+    </ul>
+
+    <h2>Femenino</h2>
+    <ul>
+      {{#each users.female}}
+        <li>{{name}} - {{email}} - {{timestamp}}</li>
+      {{/each}}
+    </ul>
+    <button id="back-button">Volver</button>
+
+    <canvas id="myChart" width="400" height="400"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'pie', // Cambiar el tipo de gráfico a pie
+      data: {
+        labels: ['Masculino', 'Femenino'],
+        datasets: [{
+          label: 'Cantidad de Usuarios',
+          data: [{{users.male.length}}, {{users.female.length}}],
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+          ],
+          borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 1)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        // Agregar opciones personalizadas aquí si lo deseas
+      }
+    });
+
+    document.getElementById('back-button').addEventListener('click', () => {
+      window.location.href = '/';
+    });
+  </script>
+</body>
+</html>
